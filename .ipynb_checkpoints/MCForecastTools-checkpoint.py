@@ -5,6 +5,7 @@ import os
 import alpaca_trade_api as tradeapi
 import datetime as dt
 import pytz
+import yfinance as yf
 
 class MCSimulation:
     """
