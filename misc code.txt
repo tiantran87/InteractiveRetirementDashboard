@@ -1,0 +1,16 @@
+def create_input_ipywidget():
+    # Input widgets
+    item_layout = widgets.Layout(margin='0 0 50px 0')
+    crypto_year_slider = widgets.IntSlider(min=0, max=3, step=1, description='Years of Crypto Data', value=3)
+    crypto_ticker = widgets.Dropdown(options = range_of_cryptos)
+    stock_year_slider = widgets.IntSlider(min=0, max=3, step=1, description='Years of Stock Data', value=3)
+    stock_ticker = widgets.Dropdown(options = range_of_stocks)
+    btn = widgets.Button(description='Fetch Data')
+
+    input_crypto_box = widgets.VBox([crypto_ticker, crypto_year_slider], layout=item_layout)
+    input_stock_box = widgets.VBox([stock_ticker, stock_year_slider], layout=item_layout)
+    user_input_data = widgets.HBox([input_crypto_box, input_stock_box], layout=item_layout)
+    
+    btn.on_click(download_data(crypto_ticker.value, crypto_year_slider.value))
+    
+    return user_input_data
