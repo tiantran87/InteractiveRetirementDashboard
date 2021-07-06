@@ -1,0 +1,22 @@
+# Project Plan 
+
+### Step 1
+- Identify the stocks and crypto 
+    - BTC, ETH, BNB, ADA, DOGE, XRP, LINK , THETA, LTC, XLM 
+    - AMZN, TSLA, NEO, AAPL, XPENG, BABA, SNPWR, NFLX, DIS, NIKE
+
+### Step 2
+- Dividing the coding work between the team 
+    - 
+
+### Step 3
+- Pull all the code together and testing to see if it works 
+
+### Step 3 
+- PLanning on how we want the dashboard to look like - What we want it to disply and finding the library to enable us to make it
+
+### Step 4 
+ - Putting it together 
+
+ ### Step 5
+- Testing - send it to friends and family
