@@ -60,11 +60,11 @@ class MCSimulation:
         
         # Calculate daily return if not within dataframe
         if not "daily_return" in portfolio_data.columns.get_level_values(1).unique():
-            close_df = portfolio_data.xs('close',level=1,axis=1).pct_change()
+            Close_df = portfolio_data.xs('Close',level=1,axis=1).pct_change()
             tickers = portfolio_data.columns.get_level_values(0).unique()
             column_names = [(x,"daily_return") for x in tickers]
-            close_df.columns = pd.MultiIndex.from_tuples(column_names)
-            portfolio_data = portfolio_data.merge(close_df,left_index=True,right_index=True).reindex(columns=tickers,level=0)    
+            Close_df.columns = pd.MultiIndex.from_tuples(column_names)
+            portfolio_data = portfolio_data.merge(Close_df,left_index=True,right_index=True).reindex(columns=tickers,level=0)    
         
         # Set class attributes
         self.portfolio_data = portfolio_data
@@ -80,7 +80,7 @@ class MCSimulation:
         """
         
         # Get closing prices of each stock
-        last_prices = self.portfolio_data.xs('close',level=1,axis=1)[-1:].values.tolist()[0]
+        last_prices = self.portfolio_data.xs('Close',level=1,axis=1)[-1:].values.tolist()[0]
         
         # Calculate the mean and standard deviation of daily returns for each stock
         daily_returns = self.portfolio_data.xs('daily_return',level=1,axis=1)
