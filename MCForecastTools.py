@@ -59,7 +59,7 @@ class MCSimulation:
         
         # Calculate daily return if not within dataframe
         if not "daily_return" in portfolio_data.columns.get_level_values(1).unique():
-            close_df = portfolio_data.xs('close',level=1,axis=1).pct_change()
+            close_df = portfolio_data.xs('Close',level=1,axis=1).pct_change()
             tickers = portfolio_data.columns.get_level_values(0).unique()
             column_names = [(x,"daily_return") for x in tickers]
             close_df.columns = pd.MultiIndex.from_tuples(column_names)
@@ -79,7 +79,7 @@ class MCSimulation:
         """
         
         # Get closing prices of each stock
-        last_prices = self.portfolio_data.xs('close',level=1,axis=1)[-1:].values.tolist()[0]
+        last_prices = self.portfolio_data.xs('Close',level=1,axis=1)[-1:].values.tolist()[0]
         
         # Calculate the mean and standard deviation of daily returns for each stock
         daily_returns = self.portfolio_data.xs('daily_return',level=1,axis=1)
@@ -93,7 +93,7 @@ class MCSimulation:
         for n in range(self.nSim):
         
             if n % 10 == 0:
-                print(f"Running Monte Carlo simulation number {n}.")
+                #print(f"Running Monte Carlo simulation number {n}.")
         
             # Create a list of lists to contain the simulated values for each stock
             simvals = [[p] for p in last_prices]
