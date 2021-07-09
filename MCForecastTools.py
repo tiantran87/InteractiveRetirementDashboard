@@ -1,11 +1,13 @@
 # Import libraries and dependencies
 import numpy as np
 import pandas as pd
+import hvplot.pandas
 import os
 import alpaca_trade_api as tradeapi
 import datetime as dt
 import pytz
-
+import sys
+from time import sleep
 class MCSimulation:
     """
     A Python class for runnning Monte Carlo simulation on portfolio price data. 
@@ -92,8 +94,13 @@ class MCSimulation:
         # Run the simulation of projecting stock prices 'nSim' number of times
         for n in range(self.nSim):
         
-            if n % 10 == 0:
+            #if n % 10 == 0:
                 #print(f"Running Monte Carlo simulation number {n}.")
+            #    for i in range(21):
+            #        sys.stdout.write('\r')
+            #        sys.stdout.write("[%-20s] %d%%" % ('='*i, 5*i))
+            #        sys.stdout.flush()
+            #        sleep(0.25)
         
             # Create a list of lists to contain the simulated values for each stock
             simvals = [[p] for p in last_prices]
@@ -135,9 +142,9 @@ class MCSimulation:
             self.calc_cumulative_return()
             
         # Use Pandas plot function to plot the return data
-        plot_title = f"{self.nSim} Simulations of Cumulative Portfolio Return Trajectories Over the Next {self.nTrading} Trading Days."
-        return self.simulated_return.plot(legend=None,title=plot_title)
-    
+        plot_title = f"\n{self.nSim} Simulations of Cumulative Return Over the Next {self.nTrading} Days.\n"
+        #return self.simulated_return.plot(legend=None,title=plot_title)
+        return self.simulated_return.hvplot.line(rot=45, legend=False, shared_axes=False).opts(width=500, title=plot_title)
     def plot_distribution(self):
         """
         Visualizes the distribution of cumulative returns simulated using calc_cumulative_return method.
@@ -151,10 +158,11 @@ class MCSimulation:
         # Use the `plot` function to create a probability distribution histogram of simulated ending prices
         # with markings for a 95% confidence interval
         plot_title = f"Distribution of Final Cumuluative Returns Across All {self.nSim} Simulations"
-        plt = self.simulated_return.iloc[-1, :].plot(kind='hist', bins=10,density=True,title=plot_title)
-        plt.axvline(self.confidence_interval.iloc[0], color='r')
-        plt.axvline(self.confidence_interval.iloc[1], color='r')
-        return plt
+        #plt = self.simulated_return.iloc[-1, :].plot(kind='hist', bins=10,density=True,title=plot_title)
+        #plt.axvline(self.confidence_interval.iloc[0], color='r')
+        #plt.axvline(self.confidence_interval.iloc[1], color='r')
+        plot = self.simulated_return.iloc[-1, :].hvplot.hist(rot=45, bins=10, legend=False, shared_axes=False).opts(width=500, title=plot_title)
+        return plot
     
     def summarize_cumulative_return(self):
         """
