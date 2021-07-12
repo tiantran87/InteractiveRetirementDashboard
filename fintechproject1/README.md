@@ -1,16 +1,16 @@
 ![Retirement_Portfolio](./4889748_s.jpg)
 
 # Fintechproject1 - Interactive Retirement Dashboard
-## An Investment Portfolio for people seeking an early retirement 
+## An Investment Portfolio tool assisting people planing their retirement 
 
 ## Highlights
 
-This interactive dashboard simulate an investment portfolio that allows users to have an access to historical data and various risk analysis of 10 stocks & cryptos.  To get a result, users can simply select stocks/cryptos from dropdown and slide menu. Friendly interface and so easy to use!
+This interactive dashboard is a planning tool that allows users to have an access to historical data and various risk analysis for a range of stocks & cryptos (10 each type).  To get a result, users can simply select stocks/cryptos from dropdown and slide menu. Friendly interface and so easy to use!
 
 ## Technologies, API resource and liburaries used
 * Python - pandas, numpy 
 * Pyviz - hvplot, plotly, panel
-* Yfinance
+* Yfinance - this is a smally Python library that will fetch LIVE data from Yahoo Finance service and return a neat fataframe for data manipulation.
 * MCForecastTools(modified)
 
 
@@ -25,57 +25,57 @@ Stocks :
 
 "AMZN", "TSLA", "NEO", "AAPL", "NVDA", "BABA", "NFLX", "DIS", "NKE", "SQ" 
 
-Yfinance API allows access to most up-to-date data of global tickers available on their environment. Due to time constraint and a convenience to the users, we have limited the scope to 10 crypto/stock tickers. All the historical data have been retrived from Yfinance API.
+Yfinance API allows access to most up-to-date data of global tickers available on their environment. Due to time constraint and a convenience to the users, we have limited the scope to 10 crypto/stock tickers. All the historical data have been retrived from Yfinance.
 
 ## Define functions
 
-### Calculation of back dates
+### Calculation of back dates 
 
-* Calculated and defined 3 years back date using python datetime & timedelta functions. 
+* ```calc_3years_backdate()``` Calculated and defined 3 years back date using python datetime & timedelta functions. 
 ![back_date](./0.back_date_calculation.png)
 
 
 ### Download crypto and stock data for 3 years
-* Functions to draw crypto&stock data for 3 years from Yfinance package. All null data have been cleaned.
+* ```download_cryptos_data()``` and ```download_stocks_data()``` Functions to draw crypto&stock data for 3 years from Yfinance package. All null data have been cleaned.
 ![Download_data](./1.download_data.png)
 
 * Single crypto and stock data can be called using the Ticker as Index.
 
 ### Annual return function
 
-* This function returns a visual output of a single stock or crypto based on the historical data. BTC daily return:
+* ```daily_return_data(df)``` This function returns a visual output of a single stock or crypto based on the historical data. BTC daily return:
 ![Daily_return](./2.Daily_return_BTC.png)
 
 ### Cumulative return function
 
-* This function returns a visual output of cumulative return of a single stock or crypto based on the historical data. \n Cumulative return of TSLA:
+* ```cumulative_return_plot(df)``` This function returns a visual output of cumulative return of a single stock or crypto based on the historical data. \n Cumulative return of TSLA:
 ![Cumulative_return](./3.Cumulative_return_TSLA.png)
 
 ### Moving Average function
 
-* This function returns a visual output of moving average (30, 60, 90 days) of a single Cryptocurrency or Stock based on the historical data. Moving average of BTC:
+* ```MA_plot(df)``` This function returns a visual output of moving average (30, 60, 90 days) of a single Cryptocurrency or Stock based on the historical data. Moving average of BTC:
 ![Moving_average](./4.Moving_average_BTC.png)
 
 
 ### Daily return function for multiple tickers
 
-* This function return a dataframe of daily return base on original downloaded data from YFinance (crypto_df and stock_df) by:
+* ```daily_returns_multiple_tickers(df)``` This function return a dataframe of daily return base on original downloaded data from YFinance (crypto_df and stock_df) by:
 1.  Calculate Daily return for all Open, High, Low, Close, Adj Close column for each stock
 2.  Loop through each Level 0 column indexes (Stock/Crypto's Ticker) and ammend that to a new-dataframe 
 3.  Return the new-dataframe
 
-* Daily return of each crypto:
+* annual_sharpe_ratio_plot(df)``` Daily return of each crypto:
 ![Daily_return_multi](./5.Daily_return_multi_crypto.png)
 
 
 ### sharpe ratio function
 
-* This function returns a visual output of Annual Sharpe Ratio of all crypto currencies or stocks based on the histrorical data.
+* ```annual_sharpe_ratio_plot(df)``` This function returns a visual output of Annual Sharpe Ratio of all crypto currencies or stocks based on the histrorical data.
 ![Sharpe_ratio](./6.Annual_sharpe_ratios_crypto.png)
 
 ### Monte Carlo cumulative return into a dataframe function - Using a modified version of MCForcastTools.py specific to this project.
 
-* This function Calculate Monte Carlo cumulative of return of a Stock or Crypto Ticker and return dataframe.
+* ```mc_cumulative_return(df, num_sim, num_day)``` This function Calculate Monte Carlo cumulative of return of a Stock or Crypto Ticker and return dataframe.
  * This function take in parameters: 
  1. A dataframe of a single Crypto/Stock historical data  
  2. The number of simulations
@@ -86,7 +86,7 @@ Yfinance API allows access to most up-to-date data of global tickers available o
 
 ### Monte Carlo Simulation function
 
-* This function provides a visual demonstration of Monte Carlo cumulative of return of a Stock or Crypto Ticker and return a line chart
+* ```mc_plot_cumulative(df, num_sim, num_day)``` This function provides a visual demonstration of Monte Carlo cumulative of return of a Stock or Crypto Ticker and return a line chart
 *  This function take in parameters: 
  1. A dataframe of a single Crypto/Stock historical data  
  2. The number of simulations
@@ -97,7 +97,7 @@ Yfinance API allows access to most up-to-date data of global tickers available o
 
 ### Monte Carlo Simulation distribution function
 
- * This function provides a visual demonstration of Monte Carlo Distribution of return of a Stock or Crypto Ticker and return a Bar Chart
+ * ```mc_plot_distribution(df, num_sim, num_day)``` This function provides a visual demonstration of Monte Carlo Distribution of return of a Stock or Crypto Ticker and return a Bar Chart
  * This function take in parameters: 
   1. A dataframe of a single Crypto/Stock historical data  
   2. The number of simulations
@@ -108,7 +108,7 @@ Yfinance API allows access to most up-to-date data of global tickers available o
 
 ### Monte Carlo Simulation Statistic function
 
- * This function provides a statistical demonstration of Monte Carlo Distribution of return of a Stock or Crypto Ticker and return an estimation Message.
+ * ```mc_summarize_statistic(df, num_sim, num_day, initial_investment)``` This function provides a statistical demonstration of Monte Carlo Distribution of return of a Stock or Crypto Ticker and return an estimation Message.
  * This function take in parameters: 
   1. A dataframe of a single Crypto/Stock historical data  
   2. The number of simulations
@@ -119,7 +119,7 @@ Yfinance API allows access to most up-to-date data of global tickers available o
 
 ### Ploting beta taking in the Benchmark function
 
-* This function returns a visual image of beta using a benchmark data retrived from the historical data of 'SP500' and 'USDT'.
+* ```calc_sp_benchmark()``` and ```calc_usdt_benchmark()``` These functions return a visual image of beta using a benchmark data retrived from the historical data of 'SP500' and 'USDT'.
 
 1. SP500 & USDT data which has been cleaned and sorted to display the benchmark o daily returns.
 
@@ -137,13 +137,13 @@ Yfinance API allows access to most up-to-date data of global tickers available o
 
 ![Rolling_data](14.Rolling_data.png)
 
-5. Ploting beta using the benchmark function 
+5. ```beta_stock(df, rolling)``` and ```beta_crypto(df, rolling)``` Ploting beta using the benchmark function 
 
 ![Rolling_beta](15.Rolling_beta_plot.png)
 
 # Dashboard Presentation
 
-The dashboard contains three tabs 'historical data', 'Risk Analysis', and 'MC Projection Analysis'.
+The dashboard contains three tabs 'historical data', 'Risk Analysis', and 'MC Projection Analysis'. All dropdowns, sliders and inputs in this dashboard are **reactive** and the charts/visual represnattion will be update base on user selection of input
 
 1. Fetch initial data
 2. Set title and welcome text for the Dashboard
